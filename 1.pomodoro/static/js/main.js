@@ -80,7 +80,8 @@ function getModeDurationSec(mode) {
 function saveSettings() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.settings));
-  } catch {
+  } catch (error) {
+    console.warn('Failed to save settings to localStorage.', error);
   }
 }
 
@@ -102,7 +103,8 @@ function loadSettings() {
         tick: Boolean(parsed.sounds?.tick),
       },
     };
-  } catch {
+  } catch (error) {
+    console.warn('Failed to load settings from localStorage.', error);
     localStorage.removeItem(STORAGE_KEY);
   }
 }
