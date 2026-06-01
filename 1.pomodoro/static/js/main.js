@@ -99,9 +99,12 @@ function loadSettings() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const parsed = JSON.parse(raw);
-    if (![15, 25, 35, 45].includes(parsed.focusMinutes)) return;
-    if (![5, 10, 15].includes(parsed.breakMinutes)) return;
-    if (!['light', 'dark', 'focus'].includes(parsed.theme)) return;
+    const isValid = [15, 25, 35, 45].includes(parsed.focusMinutes)
+      && [5, 10, 15].includes(parsed.breakMinutes)
+      && ['light', 'dark', 'focus'].includes(parsed.theme);
+    if (!isValid) {
+      throw new Error('Invalid saved settings');
+    }
     state.settings = {
       focusMinutes: parsed.focusMinutes,
       breakMinutes: parsed.breakMinutes,
@@ -158,6 +161,9 @@ function resetCurrentMode() {
 
 function startTimer() {
   if (state.isRunning) return;
+  if (state.remainingSec < 1) {
+    resetCurrentMode();
+  }
   state.isRunning = true;
   dom.startStopBtn.textContent = '停止';
   playStartSound();
@@ -167,7 +173,7 @@ function startTimer() {
       playEndSound();
       return;
     }
-    state.remainingSec -= 1;
+    state.remainingSec = Math.max(0, state.remainingSec - 1);
     playTickSound();
     updateTime();
   }, 1000);
