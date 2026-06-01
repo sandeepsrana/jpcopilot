@@ -7,9 +7,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   </head>
   <body>
+    <canvas id="particle-canvas"></canvas>
     <main class="app-shell">
       <h1>ポモドーロタイマー</h1>
-      <p>Phase 0: Flask最小構成で画面配信を確認するためのプレースホルダーです。</p>
+
+      <div class="timer-container">
+        <svg class="progress-ring" viewBox="0 0 220 220" aria-hidden="true">
+          <circle class="progress-ring__track" cx="110" cy="110" r="96" />
+          <circle id="progress-ring__bar" class="progress-ring__bar" cx="110" cy="110" r="96" />
+        </svg>
+        <div class="timer-display">
+          <span id="session-label" class="session-label">集中</span>
+          <span id="time-display" class="time-display">25:00</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="btn-start" class="btn btn--primary">スタート</button>
+        <button id="btn-reset" class="btn btn--secondary">リセット</button>
+      </div>
+
+      <p id="session-count" class="session-info">セッション: 1</p>
     </main>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   </body>
