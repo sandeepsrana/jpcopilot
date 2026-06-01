@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, Flask, render_template
 
 
@@ -19,4 +20,5 @@ app = create_app()
 
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	debug = os.getenv("FLASK_DEBUG", "").strip().lower() in ("1", "true", "yes", "on")
+	app.run(debug=debug)
