@@ -6,10 +6,56 @@
     <title>ポモドーロタイマー</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   </head>
-  <body>
+  <body data-theme="light">
     <main class="app-shell">
       <h1>ポモドーロタイマー</h1>
-      <p>Phase 0: Flask最小構成で画面配信を確認するためのプレースホルダーです。</p>
+
+      <section class="timer-panel">
+        <p id="phaseLabel" class="phase-label">作業モード</p>
+        <p id="timeDisplay" class="time-display">25:00</p>
+        <div class="actions">
+          <button id="startStopBtn" type="button">開始</button>
+          <button id="resetBtn" type="button">リセット</button>
+          <button id="modeBtn" type="button">休憩へ切替</button>
+        </div>
+      </section>
+
+      <section class="settings-grid" aria-label="カスタマイズ設定">
+        <label>
+          作業時間
+          <select id="focusDurationSelect">
+            <option value="15">15分</option>
+            <option value="25" selected>25分</option>
+            <option value="35">35分</option>
+            <option value="45">45分</option>
+          </select>
+        </label>
+
+        <label>
+          休憩時間
+          <select id="breakDurationSelect">
+            <option value="5" selected>5分</option>
+            <option value="10">10分</option>
+            <option value="15">15分</option>
+          </select>
+        </label>
+
+        <label>
+          テーマ
+          <select id="themeSelect">
+            <option value="light" selected>ライト</option>
+            <option value="dark">ダーク</option>
+            <option value="focus">フォーカス</option>
+          </select>
+        </label>
+
+        <fieldset class="sound-settings">
+          <legend>サウンド</legend>
+          <label><input id="soundStart" type="checkbox" checked /> 開始音</label>
+          <label><input id="soundEnd" type="checkbox" checked /> 終了音</label>
+          <label><input id="soundTick" type="checkbox" /> tick音</label>
+        </fieldset>
+      </section>
     </main>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   </body>

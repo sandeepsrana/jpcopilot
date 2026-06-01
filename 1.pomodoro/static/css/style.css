@@ -1,6 +1,28 @@
 :root {
   --bg: #f4f4f9;
+  --panel: #ffffff;
   --text: #222;
+  --muted: #666;
+  --accent: #4e6cf0;
+  --border: #d6d9e6;
+}
+
+body[data-theme='dark'] {
+  --bg: #111218;
+  --panel: #1b1f2a;
+  --text: #f2f5ff;
+  --muted: #aeb6cf;
+  --accent: #8aa2ff;
+  --border: #30364b;
+}
+
+body[data-theme='focus'] {
+  --bg: #f2f7f2;
+  --panel: #f9fdf9;
+  --text: #1f2b20;
+  --muted: #4f6653;
+  --accent: #2e8b57;
+  --border: #cadbcf;
 }
 
 * {
@@ -18,9 +40,79 @@ body {
 }
 
 .app-shell {
-  width: min(90vw, 720px);
+  width: min(92vw, 780px);
   padding: 24px;
   border-radius: 12px;
-  background: #fff;
+  background: var(--panel);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+.timer-panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.phase-label {
+  margin: 0;
+  color: var(--muted);
+}
+
+.time-display {
+  margin: 8px 0 12px;
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+button,
+select {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font: inherit;
+  color: var(--text);
+  background: var(--panel);
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.settings-grid label {
+  display: grid;
+  gap: 6px;
+}
+
+.sound-settings {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.sound-settings label {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px;
 }
