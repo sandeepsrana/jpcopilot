@@ -8,9 +8,100 @@
   </head>
   <body>
     <main class="app-shell">
-      <h1>ポモドーロタイマー</h1>
-      <p>Phase 0: Flask最小構成で画面配信を確認するためのプレースホルダーです。</p>
+      <h1 class="app-title">ポモドーロタイマー</h1>
+
+      <!-- タイマーカード -->
+      <section class="card timer-card" aria-label="タイマー">
+        <div class="phase-label" id="phase-label">作業中</div>
+
+        <div class="ring-container">
+          <svg class="progress-ring" viewBox="0 0 200 200" aria-hidden="true">
+            <circle class="progress-ring__bg" cx="100" cy="100" r="86" />
+            <circle class="progress-ring__fg" id="progress-ring-fg" cx="100" cy="100" r="86" />
+          </svg>
+          <div
+            class="time-display"
+            id="time-display"
+            aria-live="polite"
+            aria-label="残り時間"
+          >25:00</div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn--primary" id="start-stop-btn" aria-label="タイマーを開始">
+            開始
+          </button>
+          <button class="btn btn--secondary" id="reset-btn" aria-label="タイマーをリセット">
+            リセット
+          </button>
+        </div>
+      </section>
+
+      <!-- 今日の進捗カード -->
+      <section class="card stats-card" aria-label="今日の進捗">
+        <h2 class="card-title">今日の進捗</h2>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-value" id="completed-count">0</span>
+            <span class="stat-label">完了数</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="focus-total">0分</span>
+            <span class="stat-label">集中時間</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ゲーミフィケーション: レベル・XP・ストリーク -->
+      <section class="card level-card" aria-label="レベルと経験値">
+        <div class="level-header">
+          <span class="level-badge" id="level-display">Lv.1</span>
+          <span
+            class="streak-display"
+            id="streak-display"
+            aria-label="ストリーク 0日連続"
+          >🔥 0日連続</span>
+        </div>
+        <div
+          class="xp-bar-container"
+          role="progressbar"
+          aria-label="経験値バー"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
+          <div class="xp-bar-fill" id="xp-bar-fill" style="width:0%"></div>
+        </div>
+        <div class="xp-text" id="xp-text">0 / 100 XP</div>
+      </section>
+
+      <!-- アチーブメントバッジ -->
+      <section class="card badges-card" aria-label="アチーブメント">
+        <h2 class="card-title">アチーブメント</h2>
+        <div class="badges-container" id="badges-container"></div>
+      </section>
+
+      <!-- 週間統計グラフ -->
+      <section class="card chart-card" aria-label="週間統計">
+        <h2 class="card-title">週間ポモドーロ</h2>
+        <div class="weekly-chart" id="weekly-chart"></div>
+      </section>
     </main>
+
+    <!-- 通知トースト -->
+    <div
+      class="notification"
+      id="gamification-notification"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
+    <script src="{{ url_for('static', filename='js/state-store.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progress-ring.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/timer-engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/gamification.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui-controller.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   </body>
 </html>
