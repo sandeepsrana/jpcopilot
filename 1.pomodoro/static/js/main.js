@@ -32,20 +32,20 @@ const dom = {
   soundTick: document.getElementById('soundTick'),
 };
 
+const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+const audioContext = AudioContextClass ? new AudioContextClass() : null;
+
 function beep(frequency = 660, durationMs = 80, gainValue = 0.03) {
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContextClass) return;
-  const context = new AudioContextClass();
-  const oscillator = context.createOscillator();
-  const gain = context.createGain();
+  if (!audioContext) return;
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
   oscillator.type = 'sine';
   oscillator.frequency.value = frequency;
   gain.gain.value = gainValue;
   oscillator.connect(gain);
-  gain.connect(context.destination);
+  gain.connect(audioContext.destination);
   oscillator.start();
-  oscillator.stop(context.currentTime + durationMs / 1000);
-  oscillator.onended = () => context.close();
+  oscillator.stop(audioContext.currentTime + durationMs / 1000);
 }
 
 function playStartSound() {
@@ -156,10 +156,6 @@ function startTimer() {
     state.remainingSec -= 1;
     playTickSound();
     updateTime();
-    if (state.remainingSec <= 0) {
-      stopTimer();
-      playEndSound();
-    }
   }, 1000);
 }
 
