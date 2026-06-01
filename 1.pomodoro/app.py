@@ -7,7 +7,7 @@ page_bp = Blueprint("page", __name__)
 
 @page_bp.route("/")
 def index() -> str:
-	return render_template("index.html")
+    return render_template("index.html")
 
 
 def create_app() -> Flask:
