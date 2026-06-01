@@ -63,6 +63,11 @@ class TimerEngine {
     return this._phaseDuration(this.phase);
   }
 
+  /** Today's stats object (read-only public accessor). */
+  get statsToday() {
+    return this._store.statsToday;
+  }
+
   // ── Private helpers ─────────────────────────────────────────────────────────
 
   _tick() {

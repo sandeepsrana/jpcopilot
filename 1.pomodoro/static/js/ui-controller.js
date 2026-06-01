@@ -2,6 +2,7 @@
 
 const PHASE_LABELS = { focus: "作業中", shortBreak: "短休憩", longBreak: "長休憩" };
 const DAY_NAMES = ["日", "月", "火", "水", "木", "金", "土"];
+const NOTIFICATION_DURATION_MS = 3000;
 
 /**
  * UIController
@@ -78,7 +79,7 @@ class UIController {
     clearTimeout(this._notifTimer);
     this._notifTimer = setTimeout(
       () => el.classList.remove("notification--visible"),
-      3000
+      NOTIFICATION_DURATION_MS
     );
   }
 
@@ -107,7 +108,7 @@ class UIController {
   }
 
   _updateStats() {
-    const { completedCount, focusTotalSec } = this._engine._store.statsToday;
+    const { completedCount, focusTotalSec } = this._engine.statsToday;
     this._els.completedCount.textContent = String(completedCount);
 
     const totalMin = Math.floor(focusTotalSec / 60);

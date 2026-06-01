@@ -1,5 +1,7 @@
 "use strict";
 
+const BADGE_NOTIFICATION_DELAY_MS = 3400;
+
 document.addEventListener("DOMContentLoaded", () => {
   // ── Bootstrap ───────────────────────────────────────────────────────────────
   const store = new StateStore();
@@ -19,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newBadges.forEach((badge, i) => {
           setTimeout(
             () => ui.showNotification(`🏅 バッジ獲得: ${badge.label} ${badge.emoji}`),
-            3400 + i * 3400
+            BADGE_NOTIFICATION_DELAY_MS + i * BADGE_NOTIFICATION_DELAY_MS
           );
         });
       } else {
