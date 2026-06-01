@@ -33,19 +33,28 @@ const dom = {
 };
 
 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-const audioContext = AudioContextClass ? new AudioContextClass() : null;
+let audioContext = null;
+
+function getAudioContext() {
+  if (!AudioContextClass) return null;
+  if (!audioContext) {
+    audioContext = new AudioContextClass();
+  }
+  return audioContext;
+}
 
 function beep(frequency = 660, durationMs = 80, gainValue = 0.03) {
-  if (!audioContext) return;
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
+  const context = getAudioContext();
+  if (!context) return;
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
   oscillator.type = 'sine';
   oscillator.frequency.value = frequency;
   gain.gain.value = gainValue;
   oscillator.connect(gain);
-  gain.connect(audioContext.destination);
+  gain.connect(context.destination);
   oscillator.start();
-  oscillator.stop(audioContext.currentTime + durationMs / 1000);
+  oscillator.stop(context.currentTime + durationMs / 1000);
 }
 
 function playStartSound() {
