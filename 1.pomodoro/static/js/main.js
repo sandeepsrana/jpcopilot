@@ -78,7 +78,10 @@ function getModeDurationSec(mode) {
 }
 
 function saveSettings() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.settings));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.settings));
+  } catch {
+  }
 }
 
 function loadSettings() {
